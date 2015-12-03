@@ -1,0 +1,122 @@
+import time
+
+#Starting values
+p1Duck = 5
+p2Duck = 5
+
+p1Snowballs = 2
+p2Snowballs = 2
+
+p1Points = 0
+p2Points = 0
+
+print("Welcome to Snowball Fight. You start with",p1Duck,"ducks,",p1Snowballs,"snowballs, and need 3 points to win.")
+
+def stats():
+    print("\nPlayer 1 has",p1Points,"points.")
+    print("Player 2 has",p2Points,"points.")
+    print("\nPlayer 1 has",p1Duck,"ducks left.")
+    print("Player 2 has",p2Duck,"ducks left.")
+    print("\nPlayer 1 has",p1Snowballs,"snowballs left.")
+    print("Player 2 has",p2Snowballs,"snowballs left.")
+
+while p1Points != 3 and p2Points != 3:
+    print("Player 1's move:")
+    if p1Duck == 0:
+        print("\nYou have no ducks left.")
+        p1Move = input("Throw, or Reload? ")
+        
+    elif p1Duck == 0 and p1Snowballs == 0:
+        print("\nYou have no ducks or snowballs left.")
+        print("You are forced to reload!")
+        p1Move = "reload"
+        
+    elif p1Snowballs == 0:
+        print("\nYou have no snowballs left.")
+        p1Move = input("Duck, or Reload? ")
+        
+    else:
+        p1Move = input("\nThrow, Duck, or Reload? ")
+
+    print("Player 2's move:")
+    if p2Duck == 0:
+        print("\nYou have no ducks left.")
+        p2Move = input("Throw, or Reload?")
+        
+    elif p2Duck == 0 and p2Snowballs == 0:
+        print("\nYou have no ducks or snowballs left.")
+        print("You are forced to reload!")
+        p2Move = "reload"
+        
+    elif p2Snowballs == 0:
+        print("\nYou have no snowballs left.")
+        p2Move = input("Duck, or Reload?")
+        
+    else:
+        p2Move = input("Throw, Duck, or Reload? ")
+
+    #outputs
+    if p1Move == "throw" and p2Move == "throw":
+        print("\nBoth players threw a snowball and missed! ")
+        stats()
+
+    elif p1Move == "duck" and p2Move == "duck":
+        p1Duck -= 1
+        p2Duck -= 1
+        print("\nBoth players ducked!")
+        stats()
+
+    elif p1Move == "reload" and p2Move == "reload":
+        p1Snowballs += 1
+        p2Snowballs += 1
+        print("\nBoth players reloaded! ")
+        stats()
+
+    elif p1Move == "throw" and p2Move == "duck":
+        p1Snowballs -= 1
+        p2Duck -= 1
+        print("\nPlayer 1 threw a snowball, but player 2 ducked! ")
+        stats()
+
+    elif p1Move == "throw" and p2Move =="reload":
+        p1Points += 1
+        p1Snowballs -= 1
+        p2Snowballs += 1
+        print("\nPlayer 1 threw a snowball, and hit player 2 while reloading! ")
+        stats()
+
+    elif p1Move == "duck" and p2Move == "throw":
+        p1Duck -= 1
+        p2Snowballs -= 1
+        print("\nPlayer 1 ducked while player 2 threw! ")
+        stats()
+
+    elif p1Move == "duck" and p2Move == "reload":
+        p1Duck -= 1
+        p2Snowballs += 1
+        print("\nPlayer 1 ducked while player 2 was reloading! ")
+        stats()
+
+    elif p1Move =="reload" and p2Move == "throw":
+        p1Snowballs += 1
+        p2Snowballs -= 1
+        p2Points += 1
+        print("\nPlayer 1 reloaded, but got hit by a snowball!")
+        stats()
+
+    elif p1Move == "reload" and p2Move == "duck":
+        p1Snowballs += 1
+        p2Duck -= 1
+        print("\nPlayer 1 reloaded while player 2 ducked!")
+        stats()
+
+if p1Points == 3:
+    print("\nPlayer 1 won!")
+    print("Player 2 had",p2Points,"points.")
+
+else:
+    print("\nPlayer 2 won!")
+    print("Player 1 had",p1Points,"points.")
+
+time.sleep(4)
+exit()
